@@ -122,4 +122,211 @@
 
     <div id="detailsModal" class="fixed inset-0 bg-black/90 flex items-center justify-center p-4 hidden z-50 overflow-y-auto">
         <div class="bg-zinc-950 border border-zinc-800 w-full max-w-md rounded-xl p-5 relative my-4 custom-scroll max-h-[90vh] overflow-y-auto">
-            <button onclick="closeDetailsModal()" class="absolute top-4 right-4 text-zinc-
+            <button onclick="closeDetailsModal()" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-2xl">&times;</button>
+            
+            <div id="detailsContent"></div>
+        </div>
+    </div>
+
+    <div id="orderModal" class="fixed inset-0 bg-black/90 flex items-center justify-center p-4 hidden z-50 overflow-y-auto">
+        <div class="bg-zinc-950 border border-zinc-800 w-full max-w-md rounded-xl p-5 relative my-4">
+            <button onclick="closeOrderModal()" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-2xl">&times;</button>
+            
+            <h3 class="text-lg font-bold text-amber-500 mb-4">অর্ডার চার্ট পূরণ করুন</h3>
+            
+            <form action="https://formspree.io/f/mkoeorvo" method="POST" class="space-y-3">
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-1">জার্সির নাম</label>
+                    <input type="text" id="productNameInput" name="Jersey_Name" readonly class="w-full bg-zinc-900 border border-zinc-800 rounded p-2 text-sm text-amber-500 font-semibold focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-1">কাস্টমারের নাম</label>
+                    <input type="text" name="Customer_Name" required placeholder="সম্পূর্ণ নাম লিখুন" class="w-full bg-zinc-900 border border-zinc-800 rounded p-2 text-sm focus:outline-none focus:border-amber-500">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-1">মোবাইল নম্বর</label>
+                    <input type="tel" name="Mobile_Number" required placeholder="১১ ডিজিটের নম্বর" class="w-full bg-zinc-900 border border-zinc-800 rounded p-2 text-sm focus:outline-none focus:border-amber-500">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-1">জেলা</label>
+                        <input type="text" name="District" required placeholder="যেমন: ময়মনসিংহ" class="w-full bg-zinc-900 border border-zinc-800 rounded p-2 text-sm focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-1">উপজেলা</label>
+                        <input type="text" name="Upazila" required placeholder="যেমন: সদর" class="w-full bg-zinc-900 border border-zinc-800 rounded p-2 text-sm focus:outline-none focus:border-amber-500">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-1">পূর্ণ ঠিকানা</label>
+                    <textarea name="Full_Address" rows="2" required placeholder="গ্রাম/রোড এবং পোস্ট অফিস উল্লেখ করুন" class="w-full bg-zinc-900 border border-zinc-800 rounded p-2 text-sm focus:outline-none focus:border-amber-500"></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-1">জার্সি সাইজ</label>
+                        <select name="Jersey_Size" id="selectedSize" required class="w-full bg-zinc-900 border border-zinc-800 rounded p-2 text-sm focus:outline-none focus:border-amber-500 text-zinc-300">
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-1">জার্সি সংখ্যা</label>
+                        <select name="Quantity" required class="w-full bg-zinc-900 border border-zinc-800 rounded p-2 text-sm focus:outline-none focus:border-amber-500 text-zinc-300">
+                            <option value="1">1 টি</option>
+                            <option value="2">2 টি</option>
+                            <option value="3">3 টি</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-2.5 rounded text-sm transition-all shadow-lg shadow-amber-500/10">Confirm Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="mt-12 border-t border-zinc-800 p-6 text-center text-xs text-zinc-500">
+        &copy; 2026 UTN Fashion. All Rights Reserved.
+    </footer>
+
+    <script>
+        const productsData = {
+            1: {
+                name: "ব্রাজিল হোম জার্সি",
+                price: "৳৩৭০",
+                oldPrice: "৳৪০০",
+                img: "brasil.jpg",
+                desc: "ঐতিহ্যবাহী হলুদ রঙের ক্লাসিক ডিজাইন। এটি ফুটবল প্রেমীদের জন্য অত্যন্ত আরামদায়ক এবং প্রিমিয়াম কোয়ালিটি ফেব্রিক দিয়ে তৈরি। যেকোনো স্ট্রিট-স্টাইল বা খেলার মাঠে দারুণ মানিয়ে যাবে।",
+                features: ["ইউনিক ক্লাসিক ডিজাইন", "প্রিমিয়াম কোয়ালিটি ফেব্রিক", "সফট ও ব্রিদেবল মেটেরিয়াল", "ট্রেন্ডি ফুটবল ফ্যাশন"]
+            },
+            2: {
+                name: "ব্রাজিল অ্যাওয়ে জার্সি",
+                price: "৳৩৭০",
+                oldPrice: "৳৪০০",
+                img: "brasilaway.jpg",
+                desc: "ব্রাজিলের চমৎকার নীল রঙের অ্যাওয়ে কিট। আকর্ষণীয় গ্রাফিক্স প্যাটার্ন সমৃদ্ধ এই জার্সিটি যেকোনো ক্যাজুয়াল আউটিং বা ফুটবল ডাই-হার্ড ফ্যানদের প্রথম পছন্দ।",
+                features: ["আকর্ষণীয় ব্লু গ্রাফিক্স", "এক্সপোর্ট কোয়ালিটি সুইং", "ঘাম শোষনকারী ফেব্রিক", "কমফোর্টেবল ফিটিং"]
+            },
+            3: {
+                name: "আর্জেন্টিনা হোম জার্সি",
+                price: "৳৩৭০",
+                oldPrice: "৳৪০০",
+                img: "Argentina home.jpg",
+                desc: "আর্জেন্টিনার আইকনিক আকাশি-সাদা স্ট্রাইপড হোম জার্সি। প্রিমিয়াম ফেব্রিকের নিখুঁত ফিনিশিং এবং চমৎকার ফ্যান রেডি লুক কাস্টমারদের দেবে একদম কমফোর্টেবল অনুভূতি।",
+                features: ["আইকনিক স্কাই ব্লু-হোয়াইট স্ট্রাইপ", "উнят মানের এমব্রয়ডারি লোগো", "খুবইソフト এবং লাইটওয়েট", "ফ্যান কালেকশন এডিশন"]
+            },
+            4: {
+                name: "আর্জেন্টিনা ইন্টারেস্ট কিট",
+                price: "৳৩৭০",
+                oldPrice: "৳৪০০",
+                img: "argentinaterestkit.jpg",
+                desc: "একটি বিশেষ কালেকশন, যা স্ট্রিটওয়্যার হিসেবে দারুণ জনপ্রিয়। সুন্দর লাইট প্যাটার্ন ও শৈল্পিক ডিজাইনের কারণে এটি সাধারণ ফ্যানদের পাশাপাশি ফ্যাশন সচেতনদেরও মন কাড়বে।",
+                features: ["স্পেশাল কালেকশন ডিজাইন", "স্টাইলিশ স্ট্রিটওয়্যার লুক", "প্রিমিয়াম মাইক্রো-ফাইবার ফেব্রিক", "লং-লাস্টিং কালার গ্যারান্টি"]
+            },
+            5: {
+                name: "পর্তুগাল জার্সি",
+                price: "৳৩৭০",
+                oldPrice: "৳৪০০",
+                img: "pourtogal.jpg",
+                desc: "পর্তুগালের ঐতিহ্যবাহী ক্লাসিক কালার কম্বিনেশন। হাই-কোয়ালিটি ফেব্রিক এবং ডিউরেবল কলার ফিনিশিং এর কারণে এটি রেগুলার ব্যবহারের জন্য অত্যন্ত উপযোগী।",
+                features: ["ক্লাসিক ভাইব্রেন্ট কালার কম্বো", "কমফোর্ট কলার ডিজাইন", "সহজে বাতাস চলাচলকারী ফেব্রিক", "পারফেক্ট অ্যাথলেটিক ফিট"]
+            },
+            6: {
+                name: "স্পেন জার্সি",
+                price: "৳৩৭০",
+                oldPrice: "৳৪০০",
+                img: "spain..jpg",
+                desc: "স্পেনের ঐতিহ্যবাহী গর্জিয়াস রেড এডিশন। দুই কাঁধের আকর্ষণীয় স্ট্রাইপ এবং চমৎকার লাক্সারি ফেব্রিক লাভারদের দেবে প্রিমিয়াম স্পোর্টস এক্সপেরিয়েন্স।",
+                features: ["গর্জিয়াস রেড টোন", "অরিজিনাল টিম ভাইবস স্ট্রাইপ", "১০০% প্রিমিয়াম পলিয়েস্টার ফেব্রিক", "ডিউরেবল এবং কালার ফাস্টনেস"]
+            }
+        };
+
+        function openDetailsModal(id) {
+            const product = productsData[id];
+            let featuresHTML = '';
+            product.features.forEach(f => {
+                featuresHTML += `<li class="text-xs text-zinc-300 flex items-center">
+                    <span class="text-amber-500 mr-2">✔</span> ${f}
+                </li>`;
+            });
+
+            const htmlContent = `
+                <div class="relative bg-zinc-900 aspect-[4/3] rounded-lg overflow-hidden flex items-center justify-center mb-4 border border-zinc-800">
+                    <img src="${product.img}" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-xl font-bold text-zinc-100">${product.name}</h3>
+                <div class="flex items-center space-x-2 mt-1 mb-3">
+                    <span class="text-amber-500 font-bold text-lg">${product.price}</span>
+                    <span class="text-zinc-500 line-through text-sm">${product.oldPrice}</span>
+                    <span class="text-emerald-500 text-xs font-semibold ml-2">Save ৳৩০</span>
+                </div>
+                <p class="text-sm text-zinc-400 leading-relaxed mb-4">${product.desc}</p>
+                
+                <h4 class="text-xs uppercase tracking-wider text-zinc-500 font-bold mb-2">Features:</h4>
+                <ul class="space-y-1 mb-5">${featuresHTML}</ul>
+
+                <h4 class="text-xs uppercase tracking-wider text-zinc-500 font-bold mb-2">📏 Size Chart (Measurements in Inches):</h4>
+                <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-3 text-xs space-y-1 text-zinc-300 font-mono mb-6">
+                    <div><span class="text-amber-500 font-bold">M</span>  — Length: 26 | Chest: 37</div>
+                    <div><span class="text-amber-500 font-bold">L</span>  — Length: 27 | Chest: 39</div>
+                    <div><span class="text-amber-500 font-bold">XL</span> — Length: 28 | Chest: 41</div>
+                    <div><span class="text-amber-500 font-bold">XXL</span>— Length: 29 | Chest: 43</div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-2">Select Size:</label>
+                    <div class="flex space-x-2" id="modalSizeSelectors">
+                        <button onclick="setGlobalSize('M')" id="btn-M" class="size-btn bg-zinc-900 border border-zinc-700 px-3 py-1.5 rounded text-xs hover:border-amber-500 font-bold">M</button>
+                        <button onclick="setGlobalSize('L')" id="btn-L" class="size-btn bg-zinc-900 border border-zinc-700 px-3 py-1.5 rounded text-xs hover:border-amber-500 font-bold">L</button>
+                        <button onclick="setGlobalSize('XL')" id="btn-XL" class="size-btn bg-zinc-900 border border-zinc-700 px-3 py-1.5 rounded text-xs hover:border-amber-500 font-bold">XL</button>
+                        <button onclick="setGlobalSize('XXL')" id="btn-XXL" class="size-btn bg-zinc-900 border border-zinc-700 px-3 py-1.5 rounded text-xs hover:border-amber-500 font-bold">XXL</button>
+                    </div>
+                </div>
+
+                <button onclick="proceedToOrder('${product.name}')" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-lg text-sm transition-all shadow-lg shadow-amber-500/20 mt-2">Buy Now</button>
+            `;
+
+            document.getElementById('detailsContent').innerHTML = htmlContent;
+            document.getElementById('detailsModal').classList.remove('hidden');
+            setGlobalSize('M');
+        }
+
+        function setGlobalSize(size) {
+            document.getElementById('selectedSize').value = size;
+            const buttons = document.querySelectorAll('.size-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-amber-500', 'text-black', 'border-amber-500');
+                btn.classList.add('bg-zinc-900', 'text-white', 'border-zinc-700');
+            });
+            const activeBtn = document.getElementById(`btn-${size}`);
+            if(activeBtn) {
+                activeBtn.classList.remove('bg-zinc-900', 'text-white', 'border-zinc-700');
+                activeBtn.classList.add('bg-amber-500', 'text-black', 'border-amber-500');
+            }
+        }
+
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').classList.add('hidden');
+        }
+
+        function proceedToOrder(productName) {
+            closeDetailsModal();
+            document.getElementById('orderModal').classList.remove('hidden');
+            document.getElementById('productNameInput').value = productName;
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').classList.add('hidden');
+        }
+
+        window.onclick = function(event) {
+            const dModal = document.getElementById('detailsModal');
+            const oModal = document.getElementById('orderModal');
+            if (event.target == dModal) { dModal.classList.add('hidden'); }
+            if (event.target == oModal) { oModal.classList.add('hidden'); }
+        }
+    </script>
+</body>
+</html>
