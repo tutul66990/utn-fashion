@@ -223,3 +223,53 @@
         const productsData = {
             1: { name: "Brazil Home", img: "brasil_home.jpg", price: "৳৩৭০", oldPrice: "৳৪০০", desc: "ঐতিহ্যবাহী ক্লাসিক হলুদ ও সবুজ কম্বিনেশনের ডিজাইন। এটি ফুটবল প্রেমীদের জন্য অত্যন্ত আরামদায়ক এবং প্রিমিয়াম কোয়ালিটি ফেব্রিক দিয়ে তৈরি।", features: ["প্রিমিয়াম সফট মেটেরিয়াল", "পারফেক্ট ফিটিং ও নিখুঁত সেলাই", "লং-লাস্টিং কালার গ্যারান্টি"] },
             2: { name: "Brazil Away", img: "brasil_away.jpg", price: "৳৩৭০", oldPrice: "৳৪০০", desc: "চমৎকার ভাইব্রেন্ট ব্লু কালার টোনের আকর্ষণীয় প্যাটার্ন ডিজাইন। ঘাম শোষনকারী এবং সহজে বাতাস চলাচলকারী হাই-কোয়ালিটি ফেব্রিক ব্যবহার করা হয়েছে।", features: ["আকর্ষণীয় ব্লু গ্রাফিক্স", "কমফোর্টেবল ও ব্রিদেবল ফেব্রিক", "রেগুলার ব্যবহারের জন্য উপযোগী"] },
+            3: { name: "Argentina Home", img: "argentina_home.jpg", price: "৳৪৫০", oldPrice: "৳৫০০", desc: "আইকনিক স্কাই ব্লু এবং হোয়াইট স্ট্রাইপড ক্লাসিক লুক। নিখুঁত ফিনিশিং ও অত্যন্ত লাইটওয়েট ফেব্রিকের কারণে এটি কাস্টমারদের দেবে একদম কমফোর্টেবল অনুভূতি।", features: ["আইকনিক স্ট্রাইপ ডিজাইন", "উнят মানের এমব্রয়ডারি লোগো", "ফ্যান ফেভারিট এডিশন"] },
+            4: { name: "Argentina Away", img: "argentina_away.jpg", price: "৳৩৭০", oldPrice: "৳৪০০", desc: "বোল্ড ব্ল্যাক কালার বেসের ওপর চমৎকার প্যাটার্ন আর্ট। ফ্যাশনেবল এবং ট্রিমড লুকের কারণে স্ট্রিটওয়্যার হিসেবে এটি তরুণদের প্রথম পছন্দ।", features: ["স্টাইলিশ ব্ল্যাক এডিশন", "প্রিমিয়াম মাইক্রো-ফাইবার ফেব্রিক", "ইউনিক অ্যান্ড গর্জিয়াস ভাইব"] },
+            5: { name: "Portugal Home", img: "portugal_home.jpg", price: "৳৩৭০", oldPrice: "৳৪০০", desc: "পর্তুগালের ঐতিহ্যবাহী ক্লাসিক রেড কালার কম্বিনেশন। হাই-কোয়ালিটি ফেব্রিক এবং ডিউরেবল কলার ফিনিশিং এর কারণে এটি রেগুলার ব্যবহারের জন্য অত্যন্ত উপযোগী।", features: ["ক্লাসিক ভাইব্রেন্ট কালার কম্বো", "কমফোর্ট কলার ডিজাইন", "পারফেক্ট অ্যাথলেটিক ফিট"] },
+            6: { name: "Portugal Away", img: "portugal_away.jpg", price: "৳৩৭০", oldPrice: "৳৪০০", desc: "পর্তুগালের অফ-হোয়াইট স্টাইলিশ অ্যাওয়ে জার্সি। প্রিমিয়াম মেটেরিয়াল ও মার্জিত কালার প্যালেটের চমৎকার ফিনিশিং।", features: ["স্মার্ট অফ-হোয়াইট ডিজাইন", "ব্রিদেবল ফেব্রিক টেকনোলজি", "লং-লাস্টিং প্রিমিয়াম ফেব্রিক"] },
+            7: { name: "France Home", img: "france_home.jpg", price: "৳৩৭০", oldPrice: "৳৪০০", desc: "ফ্রান্সের রয়্যাল ব্লু ক্লাসিক ডার্ক এডিশন। গলার নিখুঁত কাটিং ও বুকের গর্জিয়াস লোগো প্রিন্ট লাভারদের দেবে প্রিমিয়াম স্পোর্টস এক্সপেরিয়েন্স।", features: ["রয়্যাল ব্লু আল্ট্রা লুক", "১০০% প্রিমিয়াম পলিয়েস্টার ফেব্রিক", "কমফোর্টেবল ক্যাজুয়াল ফিট"] },
+            8: { name: "Spain Home", img: "spain_home.jpg", price: "৳৩৭০", oldPrice: "৳৪০০", desc: "স্পেনের ঐতিহ্যবাহী গর্জিয়াস রেড এডিশন। দুই কাঁধের আকর্ষণীয় স্ট্রাইপ এবং চমৎকার লাক্সারি ফেব্রিক কাস্টমারকে দেবে ফুল কমফোর্ট।", features: ["গর্জিয়াস রেড টোন", "উন্নত স্পোর্টস মেটেরিয়াল ফেব্রিক", "ডিউরেবল এবং কালার ফাস্টনেস"] }
+        };
+
+        function openOrderModal(id) {
+            const product = productsData[id];
+            let featuresHTML = '';
+            product.features.forEach(f => {
+                featuresHTML += `<li class="text-xs text-zinc-400 flex items-center"><span class="text-amber-500 mr-2">✔</span> ${f}</li>`;
+            });
+
+            const detailsHTML = `
+                <div class="bg-zinc-900 aspect-[4/3] rounded-lg overflow-hidden flex items-center justify-center mb-3 border border-zinc-800">
+                    <img src="${product.img}" class="w-full h-full object-cover">
+                </div>
+                <div class="flex justify-between items-center mb-1">
+                    <h3 class="text-xl font-bold text-zinc-100">${product.name}</h3>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-amber-500 font-bold text-base">${product.price}</span>
+                        <span class="text-zinc-500 line-through text-xs">${product.oldPrice}</span>
+                    </div>
+                </div>
+                <p class="text-xs text-zinc-400 leading-relaxed mb-3">${product.desc}</p>
+                <ul class="space-y-1 mb-4">${featuresHTML}</ul>
+                <h4 class="text-xs uppercase tracking-wider text-zinc-500 font-bold mb-1.5">📏 Size Chart (Inches):</h4>
+                <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-2.5 text-[11px] space-y-0.5 text-zinc-300 font-mono">
+                    <div><span class="text-amber-500 font-bold">M</span>  — Length: 26 | Chest: 37</div>
+                    <div><span class="text-amber-500 font-bold">L</span>  — Length: 27 | Chest: 39</div>
+                    <div><span class="text-amber-500 font-bold">XL</span> — Length: 28 | Chest: 41</div>
+                    <div><span class="text-amber-500 font-bold">XXL</span>— Length: 29 | Chest: 43</div>
+                </div>
+            `;
+
+            document.getElementById('popupDetailsPart').innerHTML = detailsHTML;
+            document.getElementById('productNameInput').value = product.name;
+            document.getElementById('orderModal').classList.remove('hidden');
+        }
+
+        function closeOrderModal() { document.getElementById('orderModal').classList.add('hidden'); }
+        window.onclick = function(event) {
+            const modal = document.getElementById('orderModal');
+            if (event.target == modal) { modal.classList.add('hidden'); }
+        }
+    </script>
+</body>
+</html>
