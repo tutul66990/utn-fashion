@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outfit Mama | Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #000000; color: #ffffff; font-family: sans-serif; }
+    </style>
+</head>
+<body class="flex min-h-screen">
+
+    <!-- Sidebar Layout (As seen in 1000240050.jpg) -->
+    <aside class="w-64 bg-zinc-950 border-r border-zinc-900 flex flex-col p-4 shrink-0">
+        <div class="mb-8">
+            <h1 class="text-amber-500 font-bold text-lg tracking-wider">Outfit Mama</h1>
+            <span class="text-[10px] text-zinc-500 uppercase tracking-widest block -mt-1">Admin Panel</span>
+        </div>
+        
+        <nav class="space-y-1 flex-1">
+            <a href="#" class="flex items-center space-x-3 bg-amber-500/10 text-amber-500 text-sm font-medium px-4 py-2.5 rounded-lg border border-amber-500/20">
+                <span>📊 Dashboard</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 text-zinc-400 hover:bg-zinc-900 hover:text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-all">
+                <span>📦 Products</span>
+            </a>
+            <a href="#" class="flex items-center space-x-3 text-zinc-400 hover:bg-zinc-900 hover:text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-all">
+                <span>🛒 Orders</span>
+            </a>
+        </nav>
+
+        <div class="border-t border-zinc-900 pt-4">
+            <button onclick="location.reload()" class="w-full text-left text-xs text-zinc-500 hover:text-white py-2 px-4">🔄 Refresh Data</button>
+            <button class="w-full text-left text-xs text-red-400 hover:text-red-300 py-2 px-4 mt-1">🚪 Sign out</button>
+        </div>
+    </aside>
+
+    <!-- Main Content Grid -->
+    <main class="flex-1 p-8 bg-[#09090b] overflow-y-auto">
+        <header class="mb-8">
+            <span class="text-xs uppercase tracking-widest text-zinc-500 font-semibold">Dashboards</span>
+            <h2 class="text-3xl font-serif text-zinc-100 mt-1">Overview</h2>
+        </header>
+
+        <!-- Live Indicators Counter -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-xl">
+                <div class="text-[11px] font-medium uppercase tracking-wider text-zinc-500">Total Products</div>
+                <div class="text-2xl font-bold text-zinc-100 mt-2">8</div>
+            </div>
+            <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-xl">
+                <div class="text-[11px] font-medium uppercase tracking-wider text-zinc-500">Online Orders</div>
+                <div id="totalOrdersCount" class="text-2xl font-bold text-zinc-100 mt-2">0</div>
+            </div>
+            <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-xl">
+                <div class="text-[11px] font-medium uppercase tracking-wider text-zinc-500">Pending Orders</div>
+                <div class="text-2xl font-bold text-zinc-100 mt-2">0</div>
+            </div>
+            <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-xl">
+                <div class="text-[11px] font-medium uppercase tracking-wider text-zinc-500">Total Revenue</div>
+                <div id="totalRevenueAmount" class="text-2xl font-bold text-amber-500 mt-2">৳০</div>
+            </div>
+        </div>
+
+        <!-- Recent Orders Segment -->
+        <section class="bg-zinc-950 border border-zinc-900 rounded-xl overflow-hidden">
+            <div class="p-5 border-b border-zinc-900">
+                <h3 class="text-base font-semibold text-zinc-200">Recent Orders</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-zinc-400">
+                    <thead class="bg-zinc-900/40 text-xs uppercase text-zinc-500 tracking-wider">
+                        <tr>
+                            <th class="px-6 py-3.5">Customer</th>
+                            <th class="px-6 py-3.5">Phone</th>
+                            <th class="px-6 py-3.5">Product & Size</th>
+                            <th class="px-6 py-3.5">Total</th>
+                            <th class="px-6 py-3.5">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody" class="divide-y divide-zinc-900"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Firebase Live Synchronization Listener -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // *** আপনার Firebase Config এখানেও বসান ***
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const q = query(collection(db, "orders"), orderBy("timestamp", "desc"));
+        onSnapshot(q, (snapshot) => {
+            let totalOrders = 0;
+            let totalRevenue = 0;
+            let tableHTML = "";
+
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                totalOrders++;
+                totalRevenue += data.totalPrice || 0;
+
+                tableHTML += `
+                    <tr class="hover:bg-zinc-900/30 transition-colors">
+                        <td class="px-6 py-4 font-medium text-zinc-200">${data.customerName}</td>
+                        <td class="px-6 py-4 text-zinc-400">${data.phone}</td>
+                        <td class="px-6 py-4 text-zinc-400">${data.productName} (${data.size}) x${data.quantity}</td>
+                        <td class="px-6 py-4 text-amber-500 font-semibold">৳${data.totalPrice}</td>
+                        <td class="px-6 py-4"><span class="px-2.5 py-0.5 text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 rounded-md border border-emerald-500/20">${data.status}</span></td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById("ordersTableBody").innerHTML = tableHTML || `<tr><td colspan="5" class="text-center py-8 text-zinc-600">কোনো অর্ডার পাওয়া যায়নি।</td></tr>`;
+            document.getElementById("totalOrdersCount").innerText = totalOrders;
+            document.getElementById("totalRevenueAmount").innerText = "৳" + totalRevenue.toLocaleString('bn-BD');
+        });
+    </script>
+</body>
+</html>
